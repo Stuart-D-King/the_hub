@@ -8,14 +8,14 @@ from nltk.tokenize import RegexpTokenizer
 DATA:
 Listing Data: Listing ID and 81 characteristics of the listing such as price, description, host response time, host response rate, and more for 3586 listings in Boston.
 
-Calendar Data (same listings): Listing ID, date for each day of the year (9/6/2016-9/5/2017), available (f if the listing is not occupied on the date or t if the listing is occupied on the date), price per night if the listing is occupied on the date
+Calendar Data (same listings): Listing ID, date for each day of the year (9/6/2016-9/5/2017), available ('f' if the listing is not occupied on the date or 't' if the listing is occupied on the date), price per night if the listing is occupied on the date
 
 QUESTIONS:
 1. Use the calendar data to sum number of nights occupied, for the entire year, per listing ID, and merge with the listing data
 
 2. Create a visualization to show seasonality trends for occupancy in Boston
 
-3. Select 5 neighborhoods in Boston, referencing column A 'neighbourhood', in the listing spreadsheet and use text analysis to extract key characteristics of these neighborhoods from column G 'neighborhood_overview' and/or column E 'Description'. Describe your process and create visualizations to display your findings
+3. Select 5 neighborhoods in Boston, referencing column A 'neighbourhood', in the listing spreadsheet and use text analysis to extract key characteristics of these neighborhoods from column G 'neighborhood_overview' and/or column E 'description'. Describe your process and create visualizations to display your findings
 '''
 
 
@@ -23,8 +23,8 @@ def prep_data():
     '''
     Load the two datasets into Pandas dataframes, and call the merge_days_booked() function to update the listings dataframe with the sum of nights occupied for each listing.
     '''
-    listings = pd.read_csv('data/ListingsAirbnbScrapeExam.csv')
-    calendar = pd.read_csv('data/CalendarAirbnbScrapeExam.csv')
+    listings = pd.read_csv('data/listings.csv')
+    calendar = pd.read_csv('data/calendar.csv')
     calendar.drop_duplicates(inplace=True)
 
     calendar['booked'] = np.where(calendar['available'] == 't', 1, 0)
