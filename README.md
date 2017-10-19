@@ -13,7 +13,7 @@ Objectives:
 - [Occupancy Trends](#occupancy-trends)
 - [Text Analysis](#text-analysis)
   * [Tf-Idf](#tf-idf)
-  * [KMeans & Tf-Idf](#kmeans-&-tf-idf)
+  * [KMeans](#kmeans)
   * [Latent Dirichlet Allocation](#latent-dirichlet-allocation)
 - [Next Steps](#next-steps)
 
@@ -84,7 +84,7 @@ To performed text analysis on the neighborhood overview text corpus of five neig
 | -------------------- | -------------------- | -------------------- | -------------------- | -------------------- |
 | Plenty of green space to enjoy, including an arboretum<br><br>Within walking distance to shops and restaurants<br><br>Has a neighborhoody feel and celebrates its diversity | Convenient location with access to public transportation<br><br>Borders several other neighborhoods and districts<br><br>Not characterized by nightlife and entertainment | Popular location for “fashionable” shopping<br><br>Historic vibe close to the Charles River<br><br>Close to other neighborhoods and offers good entertainment | Famous area known for its venues and entertainment<br><br>Home of Fenway Park, good nightlife, and museums<br><br>Walkable and centrally located | Quiet, family-friendly neighborhood<br><br>Historical with Victorian architecture<br><br>Diverse and safe area; conveniently located |
 
-#### Kmeans & Tf-Idf
+#### KMeans
 Extending the Tf-Idf vectorization technique for text analysis, I applied KMeans clustering to the transformed Tf-Idf matrix to perform topic modeling of the listings' descriptions in the five target neighborhoods. Using the scikit-learn `KMeans` clustering algorithm, I partitioned the documents into 10 clusters and returned each cluster's centroid. I then matched the top 10 numbers of each centroid with the corresponding vocabulary words. These top 10 word lists for each cluster then help define the topics present within the text. Examples of the top words in a cluster are provided below.
 
 Cluster #2 | Cluster #4
