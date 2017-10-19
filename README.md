@@ -12,9 +12,9 @@ Objectives:
 - [Total Bookings by Listing](#total-bookings-by-listing)
 - [Occupancy Trends](#occupancy-trends)
 - [Text Analysis](#text-analysis)
-  * [Tf-Idf](#tf-idf)
-  * [KMeans & Tf-Idf](#KMeans-&-tf-idf)
-  * [Latent Dirichlet Allocation](#latent-dirichlet-allocation)
+  * [Tf-Idf](#1.-tf-idf)
+  * [KMeans & Tf-Idf](#2.-kmeans-&-tf-idf)
+  * [Latent Dirichlet Allocation](#3.-latent-dirichlet-allocation)
 - [Next Steps](#next-steps)
 
 ### Background & Data
@@ -28,7 +28,7 @@ Using the provided data, we must complete the following:
 
 2. Create a visualization to show seasonality trends for occupancy in Boston
 
-3. Select 5 neighborhoods in Boston, referencing the **neighborhood** column in the `listing` dataset, and use text analysis to extract key characteristics of these neighborhoods by using the **neighborhood_overview** and/or **description** columns. Describe your process and create visualizations to support your findings
+3. Select 5 neighborhoods in Boston, referencing the **neighborhood** column in the `listing` dataset, and use text analysis to extract key characteristics of these neighborhoods by using the **neighborhood_overview** and/or **description** columns. Describe your process and create visualizations to support your findings.
 
 ### Total Bookings by Listing
 To accomplish the first task, I created two functions. The first function `prep_data` reads in both datasets as Pandas dataframes, and creates a new Boolean (1/0) feature in the `calendar` dataframe for whether a listing was occupied on a particular date. This function then calls the second function `merge_days_booked` to sum the number of nights occupied for each listing, and then merge the total for each listing with the `listings` dataframe, creating a new feature `days_booked`.
@@ -50,8 +50,8 @@ def prep_data():
     listings_merged = merge_days_booked(listings, calendar)
 
     return listings_merged, calendar
-
-
+```
+```python
 def merge_days_booked(listings, calendar):
     '''
     Using the calendar data, sum the number of nights occupied, for the entire
@@ -73,11 +73,30 @@ I explored several options for visualizing seasonality in occupancy trends in Bo
 ![](img/monthly_occupancy.png "Monthly Occupancy")
 
 ### Text Analysis
+To proper address the third task of text analysis, I performed three analytical techniques on the neighborhood overview and description text fields of each listing.
 
-#### Tf-Idf
+#### 1. Tf-Idf
+To performed text analysis on the neighborhood overview text corpus of five neighborhoods (Jamaica Plain, South End, Back Bay, Fenway, and Dorchester), I used term frequency-inverse document frequency (Tf-Idf) vectorization. I first tokenized, removed stop-words, and lemmatized the text. I then performed the Tf-Idf transformation using scikit-learn's `TfidfVectorizer`. Following Thomas Buhrmann's blog post, [Analyzing tf-idf results in scikit-learn](https://buhrmann.github.io/tfidf-analysis.html), I then created a function that returned the top 20 words that on average are most important among neighborhood overviews for each neighborhood. Using the resultant visualization of the top 20 words for each neighborhood, I was then able to infer the key characteristics of each neighborhood, as described in the listings' neighborhood overviews.
 
-#### Kmeans & Tf-Idf
+![](img/tfidf_means.png "Most important words by neighborhood")
 
-#### Latent Dirichlet Allocation
+| Jamaica Plain | South End | Back Bay | Fenway | Dorchester|
+| -------------------- | -------------------- | -------------------- | -------------------- | -------------------- |
+| Plenty of green space to enjoy, including an arboretum<br><br>Within walking distance to shops and restaurants<br><br>Has a neighborhoody feel and celebrates its diversity | Convenient location with access to public transportation<br><br>Borders several other neighborhoods and districts<br><br>Not characterized by nightlife and entertainment | Popular location for “fashionable” shopping<br><br>Historic vibe close to the Charles River<br><br>Close to other neighborhoods and offers good entertainment | Famous area known for its venues and entertainment<br><br>Home of Fenway Park, good nightlife, and museums<br><br>Walkable and centrally located | Quiet, family-friendly neighborhood<br><br>Historical with Victorian architecture<br><br>Diverse and safe area; conveniently located |
+
+#### 2. Kmeans & Tf-Idf
+Extending the Tf-Idf vectorization technique for text analysis, I applied KMeans clustering to the transformed Tf-Idf matrix to perform topic modeling of the listings' descriptions in the five target neighborhoods. Using the scikit-learn `KMeans` clustering algorithm, I partitioned the documents into 10 clusters and returned each cluster's centroid. I then matched the top 10 numbers of each centroid with the corresponding vocabulary words. These top 10 word lists for each cluster then help define the topics present within the text. Examples of the top words in a cluster are provided below.
+
+Cluster #2 | Cluster #4
+-------------------- | --------------------
+place<br>adventurer<br>solo<br>good<br>traveler<br>business<br>close<br>couple<br>love<br>location | house<br>room<br>floor<br>victorian<br>home<br>family<br>kitchen<br>bedroom<br>bathroom<br>bed
+
+Cluster #2 includes words that describe the **type of traveler** the listing is best suited for, while Cluster #4 includes descriptive words about the **physical space** of the listing.
+
+#### 3. Latent Dirichlet Allocation
 
 ### Next Steps
+- The most common terms by neighborhood within the neighborhood overview text field  were helpful in defining key characteristics for each neighborhood. The code could also be used to discover key characteristics of property listings by neighborhood. Furthermore, text analysis such as this on a segment of high-performing listings could likely result in actionable insights for re-branding of lower-performing properties.
+- Topic modeling with KMeans can be further expanded by performing a market analysis by cluster and/or neighborhood. Currently my analysis performs topic modeling on all listings’ descriptions in the five target neighborhoods, but the algorithm can be applied to each neighborhood individually to identify common topics unique to that particular neighborhood.
+- With more historical data, it is possible to come up with a time-series predictive model for occupancy, as well as a confidence interval around the model’s prediction.
+- A custom list of stop-words can likely remove meaningless words such as "Boston".

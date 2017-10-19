@@ -15,7 +15,7 @@ Apply KMeans to tf-idf features to produce topic centroids, which can then be us
 
 def tf_idf(listings):
     '''
-    Perform tf-idf vectorization on the neighborhood_overview column from the listings dataset. Return the neighborhood labels, the tf-idf's vocabulary, and the transformed tf-idf matrix.
+    Perform tf-idf vectorization on the description column from the listings dataset. Return the neighborhood labels, the tf-idf's vocabulary, and the transformed tf-idf matrix.
     '''
     hoods = ['Jamaica Plain', 'South End', 'Back Bay', 'Fenway', 'Dorchester']
 
