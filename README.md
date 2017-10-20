@@ -95,6 +95,12 @@ Cluster #2 includes words that describe the **type of traveler** the listing is 
 
 #### Latent Dirichlet Allocation
 
+Latent Dirichlet Allocation (LDA) is a probabilistic technique for topic modeling. LDA represents documents as mixtures of topics, and assumes a topic can be understood as a collection of words that have different probabilities of appearing in text discussing that topic.
+
+Using the listings' descriptions, I performed 10-topic LDA and created an interactive visualization using the `pyLDAvis` Python library. Please follow the below link to explore the topics discovered in the data using LDA.
+
+[Topic Modeling with LDA](http://ec2-54-163-94-232.compute-1.amazonaws.com:8105/)
+
 ### Next Steps
 - The most common terms by neighborhood within the neighborhood overview text field  were helpful in defining key characteristics for each neighborhood. The code could also be used to discover key characteristics of property listings by neighborhood. Furthermore, text analysis such as this on a segment of high-performing listings could likely result in actionable insights for re-branding of lower-performing properties.
 - Topic modeling with KMeans can be further expanded by performing a market analysis by cluster and/or neighborhood. Currently my analysis performs topic modeling on all listings’ descriptions in the five target neighborhoods, but the algorithm can be applied to each neighborhood individually to identify common topics unique to that particular neighborhood.
