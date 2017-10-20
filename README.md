@@ -99,6 +99,8 @@ Latent Dirichlet Allocation (LDA) is a probabilistic technique for topic modelin
 
 Using the listings' descriptions, I performed 10-topic LDA and created an interactive visualization using the `pyLDAvis` Python library. Please follow the below link to explore the topics discovered in the data using LDA.
 
+<a href="http://ec2-54-163-94-232.compute-1.amazonaws.com:8105/" target="blank">Topic Modeling with LDA</a>
+
 [Topic Modeling with LDA](http://ec2-54-163-94-232.compute-1.amazonaws.com:8105/)
 
 ### Next Steps
