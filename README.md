@@ -99,7 +99,9 @@ Latent Dirichlet Allocation (LDA) is a probabilistic technique for topic modelin
 
 Using the listings' descriptions, I performed 10-topic LDA and created an interactive visualization using the `pyLDAvis` Python library. Please follow the below link to explore the topics discovered in the data using LDA.
 
-[Topic Modeling with LDA](http://ec2-54-163-94-232.compute-1.amazonaws.com:8105/)
+[Topic Modeling with LDA](https://cdn.rawgit.com/Stuart-D-King/the_hub/master/web_app/templates/pylda.html)
+
+<!-- (http://ec2-54-163-94-232.compute-1.amazonaws.com:8105/) -->
 
 ### Next Steps
 - The most common terms by neighborhood within the neighborhood overview text field  were helpful in defining key characteristics for each neighborhood. The code could also be used to discover key characteristics of property listings by neighborhood. Furthermore, text analysis such as this on a segment of high-performing listings could likely result in actionable insights for re-branding of lower-performing properties.
